@@ -1,0 +1,6 @@
+Command to execute
+
+docker run -it --rm -v 
+bazel-cache:/root/.cache/bazel -v 
+"/home/${USER}/asylo":/opt/my-project -w /opt/my-project 
+gcr.io/asylo-framework/asylo bazel run //network_security_semester_project:network_security_semester_project_sgx_sim -- --md5="test1" --sha512="test2" --sha1="test3" --rsa  --aes --dh

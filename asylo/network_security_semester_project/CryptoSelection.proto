@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+package guide.asylo;
+
+import "asylo/enclave.proto";
+
+option java_package = "com.example";
+option java_multiple_files = true;
+option java_outer_classname = "EnclaveDemoExtension";
+
+// A custom message to pass in and out of our enclave.
+message Demo {
+  // This string value is used for both user input and enclave output.
+  optional string value = 1;
+  enum Action {
+    UNIDENTIFIED = 0;
+    MD5 = 3;
+    SHA1 = 4;
+    SHA512 = 5;
+    RSA = 6;
+    AES = 7;
+    DH = 8;
+  }
+  
+  optional Action action = 2;
+}
+
+// The EnclaveInput message that is passed to the enclave can be extended with
+// a Demo message to communicate a value our enclave knows to expect.
+extend .asylo.EnclaveInput {
+  optional Demo quickstart_input = 9001;
+}
+
+// The EnclaveOutput message that is passed out of the enclave can be extended
+// with a Demo message to communicate a value our driver knows to expect.
+extend .asylo.EnclaveOutput {
+  optional Demo quickstart_output = 9001;
+}
